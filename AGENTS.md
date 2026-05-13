@@ -153,6 +153,13 @@ El contenido vive en archivos TypeScript bajo `/content`:
 6. **La accesibilidad no es negociable.** HTML semántico, alt en imágenes, navegación por teclado, contraste suficiente en ambos temas.
 7. **Pregunta cuando haya ambigüedad.** Si una decisión puede ir por varios caminos razonables, propón opciones en lugar de adivinar.
 
+## Ámbito de trabajo y seguridad
+
+- Limitar todas las operaciones (lectura, escritura, búsqueda, ejecución de comandos) a `d:\webDeveloper\Claude_Code\sarahoces-portfolio\` y sus subcarpetas.
+- No acceder a rutas absolutas fuera de este directorio. Si se necesita algo de fuera, pedir confirmación al usuario antes de actuar.
+- No invocar las herramientas MCP de Google (Gmail, Google Calendar, Google Drive) en este proyecto. Si en algún momento fueran necesarias, avisar y esperar aprobación explícita.
+- Antes de cualquier operación destructiva (borrar archivos, reset de git, etc.), describir lo que se va a hacer y esperar confirmación.
+
 ## Fuera del alcance (de momento)
 
 - Integración con CMS. El contenido se queda en archivos TypeScript hasta que el proyecto crezca lo suficiente para justificar uno.

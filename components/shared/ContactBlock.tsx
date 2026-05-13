@@ -1,0 +1,66 @@
+import { PageWrapper } from '@/components/layout/PageWrapper';
+import { siteConfig } from '@/config/site';
+import { cv } from '@/content/shared/cv';
+
+type ContactRowProps = {
+  label: string;
+  href: string;
+  text: string;
+  external?: boolean;
+};
+
+function ContactRow({ label, href, text, external }: ContactRowProps) {
+  return (
+    <div className="flex flex-col gap-1 border-t border-stroke py-6 sm:flex-row sm:items-baseline sm:gap-16">
+      <dt className="w-32 shrink-0 text-sm uppercase tracking-widest text-navy-muted">
+        {label}
+      </dt>
+      <dd>
+        <a
+          href={href}
+          target={external ? '_blank' : undefined}
+          rel={external ? 'noopener noreferrer' : undefined}
+          className="text-lg text-navy transition-colors hover:text-arcade-green"
+        >
+          {text}
+        </a>
+      </dd>
+    </div>
+  );
+}
+
+export function ContactBlock() {
+  return (
+    <PageWrapper className="py-20">
+      <h1 className="font-display text-4xl font-bold text-navy md:text-5xl">Contacto</h1>
+      <dl className="mt-12 border-b border-stroke">
+        <ContactRow
+          label="E-mail"
+          href={`mailto:${siteConfig.email}`}
+          text={siteConfig.email}
+        />
+        <ContactRow
+          label="LinkedIn"
+          href={siteConfig.linkedin}
+          text={siteConfig.linkedin.replace('https://', '')}
+          external
+        />
+        <ContactRow
+          label="GitHub"
+          href={siteConfig.github}
+          text={siteConfig.github.replace('https://', '')}
+          external
+        />
+      </dl>
+      <div className="mt-12">
+        <a
+          href={cv.path}
+          download
+          className="inline-flex items-center gap-2 bg-navy px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-arcade-green hover:text-deep"
+        >
+          Descargar CV
+        </a>
+      </div>
+    </PageWrapper>
+  );
+}
