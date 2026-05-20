@@ -58,7 +58,11 @@ export function ViewToggle() {
 
   return (
     <nav aria-label="Modo de visualización">
-      <div className="flex items-center gap-0 border-2 border-navy bg-white">
+      <div className={`flex items-center gap-0 border-2 transition-colors ${
+        activeView === 'rigger'
+          ? 'border-warm-muted bg-deep'
+          : 'border-navy bg-surface'
+      }`}>
         <button
           onClick={() => handleToggle('rigger')}
           aria-pressed={activeView === 'rigger'}
@@ -70,14 +74,18 @@ export function ViewToggle() {
         >
           Rigger
         </button>
-        <div className="w-0.5 self-stretch bg-navy" aria-hidden />
+        <div className={`w-0.5 self-stretch transition-colors ${
+          activeView === 'rigger' ? 'bg-warm' : 'bg-navy'
+        }`} aria-hidden />
         <button
           onClick={() => handleToggle('dev')}
           aria-pressed={activeView === 'dev'}
           className={`px-4 py-2 text-xs font-medium transition-colors ${
             activeView === 'dev'
-              ? 'bg-arcade-green text-deep'
-              : 'text-navy-muted hover:text-navy hover:bg-surface'
+              ? 'bg-comment text-white'
+              : activeView === 'rigger'
+                ? 'text-warm-muted hover:text-warm hover:bg-deep-surface'
+                : 'text-navy-muted hover:text-navy hover:bg-surface'
           }`}
         >
           Developer

@@ -1,10 +1,9 @@
 export type Reel = {
-  vimeoUrl: string;
+  videoUrl: string;
   caption: string;
 };
 
-// TODO: Sara rellena con la URL real de Vimeo y el caption
 export const reel: Reel = {
-  vimeoUrl: "https://vimeo.com/000000000", // TODO: Sara rellena con URL real
-  caption: "Demo reel — Character Rigging 2024", // TODO: Sara rellena
+  videoUrl: 'https://www.minimovfx.com/wp-content/uploads/2025/02/minimo_2025_mini_reel-1.mp4',
+  caption: 'Demo reel — Character Rigging 2025',
 };

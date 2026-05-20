@@ -20,7 +20,7 @@ function ContactRow({ label, href, text, external }: ContactRowProps) {
           href={href}
           target={external ? '_blank' : undefined}
           rel={external ? 'noopener noreferrer' : undefined}
-          className="text-lg text-navy transition-colors hover:text-arcade-green"
+          className="text-lg text-navy transition-colors hover:text-comment"
         >
           {text}
         </a>
@@ -32,7 +32,10 @@ function ContactRow({ label, href, text, external }: ContactRowProps) {
 export function ContactBlock() {
   return (
     <PageWrapper className="py-20">
-      <h1 className="font-display text-4xl font-bold text-navy md:text-5xl">Contacto</h1>
+      <p className="mb-6 text-sm font-bold uppercase tracking-widest text-comment">
+        {'// contacto'}
+      </p>
+      <h1 className="text-4xl font-bold text-navy md:text-5xl">Contacto</h1>
       <dl className="mt-12 border-b border-stroke">
         <ContactRow
           label="E-mail"
@@ -56,7 +59,7 @@ export function ContactBlock() {
         <a
           href={cv.path}
           download
-          className="inline-flex items-center gap-2 bg-navy px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-arcade-green hover:text-deep"
+          className="inline-flex items-center gap-2 bg-navy px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-comment hover:text-white"
         >
           Descargar CV
         </a>

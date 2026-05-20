@@ -26,7 +26,7 @@ export default function RootLayout({
       lang="es"
       className={`${jetBrainsMono.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col font-body antialiased bg-white text-navy">
+      <body className="min-h-full flex flex-col font-body antialiased bg-surface text-navy">
         <Header />
         <main className="flex flex-1 flex-col">{children}</main>
         <Footer />

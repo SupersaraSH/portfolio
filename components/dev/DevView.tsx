@@ -8,29 +8,33 @@ export function DevView() {
 
       {/* Hero */}
       <div className="mx-auto max-w-6xl px-6 pb-16 pt-20">
-        <p className="mb-6 text-sm uppercase tracking-widest text-arcade-green">
-          Web Developer
+        <p className="mb-6 text-sm font-bold uppercase tracking-widest text-comment">
+          {'// web developer'}
         </p>
-        <h1 className="font-display text-6xl font-bold leading-tight text-navy md:text-8xl">
+        <h1 className="text-6xl font-bold leading-none text-navy md:text-8xl">
           {siteConfig.name}
         </h1>
-        <p className="mt-6 max-w-2xl text-base text-navy-muted">
+        <p className="mt-8 text-base text-navy">
+          <span className="mr-2 text-comment">{'>'}</span>
           {/* TODO: Sara ajusta el tagline */}
-          Full Stack Developer.
+          Full Stack Developer
+          <span className="ml-0.5 inline-block text-comment animate-[blink_1s_step-end_infinite]">_</span>
         </p>
       </div>
 
+      <div className="border-t border-stroke" />
+
       {/* Stack técnico */}
-      <div className="bg-surface">
-        <div className="mx-auto max-w-6xl px-6 py-20">
-          <h2 className="mb-12 font-display text-3xl font-bold text-navy">Stack</h2>
-          <TechStack />
-        </div>
+      <div className="mx-auto max-w-6xl px-6 py-20">
+        <h2 className="mb-8 text-sm font-bold uppercase tracking-widest text-comment">{'// stack'}</h2>
+        <TechStack />
       </div>
+
+      <div className="border-t border-stroke" />
 
       {/* Proyectos */}
       <div className="mx-auto max-w-6xl px-6 py-20">
-        <h2 className="mb-12 font-display text-3xl font-bold text-navy">Proyectos</h2>
+        <h2 className="mb-8 text-sm font-bold uppercase tracking-widest text-comment">{'// proyectos'}</h2>
         <ProjectShowcase />
       </div>
 

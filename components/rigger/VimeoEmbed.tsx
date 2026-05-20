@@ -1,4 +1,6 @@
-type VimeoEmbedProps = {
+import { VideoPlayer } from './VideoPlayer';
+
+type VideoEmbedProps = {
   url: string;
   caption?: string;
 };
@@ -8,17 +10,22 @@ function getVimeoId(url: string): string {
   return match ? match[1] : '';
 }
 
-export function VimeoEmbed({ url, caption }: VimeoEmbedProps) {
+function isMp4(url: string): boolean {
+  return url.endsWith('.mp4') || url.includes('.mp4?');
+}
+
+export function VimeoEmbed({ url, caption }: VideoEmbedProps) {
+  if (isMp4(url)) {
+    return <VideoPlayer src={url} caption={caption} />;
+  }
+
   const id = getVimeoId(url);
 
-  if (!id || id === '000000000') {
+  if (!id) {
     return (
-      <figure className="w-full">
+      <figure className="mx-auto w-full max-w-3xl">
         <div className="aspect-video w-full rounded-lg border border-stroke-dark bg-deep-surface flex items-center justify-center">
-          <p className="text-sm text-warm-muted">
-            {/* TODO: Sara rellena con URL real en content/rigger/reel.ts */}
-            Reel — pendiente de añadir URL de Vimeo
-          </p>
+          <p className="text-sm text-warm-muted">Reel — pendiente de añadir URL</p>
         </div>
         {caption && (
           <figcaption className="mt-3 text-center text-sm text-warm-muted">
@@ -33,7 +40,7 @@ export function VimeoEmbed({ url, caption }: VimeoEmbedProps) {
     <figure className="w-full">
       <div className="aspect-video w-full overflow-hidden rounded-lg">
         <iframe
-          src={`https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0&color=E8B620`}
+          src={`https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0&color=00FF41`}
           className="h-full w-full"
           allow="autoplay; fullscreen; picture-in-picture"
           allowFullScreen

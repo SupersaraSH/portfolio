@@ -7,6 +7,8 @@ export type DevProject = {
   repoUrl?: string;
   liveUrl?: string;
   imageUrl?: string;
+  videoUrl?: string;
+  gallery?: string[];
 };
 
 export const devProjects: DevProject[] = [

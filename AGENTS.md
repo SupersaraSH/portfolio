@@ -18,9 +18,9 @@ Un toggle en el header permite a quien visita la web cambiar entre los dos "modo
 - **Framework**: Next.js 16.x con App Router y Turbopack
 - **Lenguaje**: TypeScript (modo estricto)
 - **Estilos**: Tailwind CSS 4 (usando el theme inline con `@theme`)
-- **Tipografías**: `next/font/google` (Fraunces + Inter)
+- **Tipografías**: `next/font/google` (JetBrains Mono — monospace, estética de programador)
 - **Deploy**: Vercel
-- **Gestor de paquetes**: npm
+- **Gestor de paquetes**: pnpm 11
 
 El proyecto NO usa carpeta `src/`. Las rutas están en `/app`, y el código compartido en `/components`, `/lib`, `/content`, etc., directamente en la raíz.
 
@@ -57,66 +57,72 @@ Sara cambia ese valor, hace commit, push, y Vercel redeploya en segundos.
 
 ## Identidad visual
 
+### Concepto
+
+Dos vistas con carácter propio, unidas por la misma tipografía monospace y el verde arcade como acento signature.
+
+- **Vista dev** (`/dev`, `/about`, `/contact`) — clara, estética de editor de código / terminal. La referencia visual es un IDE como VS Code: fondo blanco, texto oscuro, acento en verde brillante.
+- **Vista rigger** (`/rigger`) — oscura, cinematográfica. El fondo profundo da máximo contraste a los vídeos y reels.
+
+La inspiración estética es el juego **Space Invaders**: minimalismo, píxeles, verde fosforescente, contraste alto. No literalmente (sin sprites ni pixel art), sino como espíritu — lo esencial, nada superfluo.
+
 ### Colores
 
 **Modo claro** — usado en `/dev` y páginas compartidas.
 
 - Fondo: `#FFFFFF`
 - Superficie (cards, bloques sutiles): `#FAFAF7`
-- Texto principal: `#1A2E44` (el navy del CV de Sara)
+- Texto principal: `#1A2E44` (navy — suficiente contraste sobre blanco sin ser puro negro)
 - Texto secundario: `#4A5D72`
-- Acento: `#E8B620` (el amarillo/dorado del CV)
+- Acento principal: `#00FF41` (arcade-green — el verde Space Invaders, usado con moderación)
+- Acento secundario: `#00FFFF` (arcade-cyan), `#FF2200` (arcade-red) — para estados, badges, énfasis puntual
 - Borde: `#E5E5E0`
 
-**Modo oscuro** — usado en `/rigger` y en cualquier sección de showcase de reels.
+**Modo oscuro** — usado en `/rigger`.
 
-- Fondo: `#0F1A2A` (más profundo que el navy del CV, da máximo contraste al video)
+- Fondo: `#0F1A2A`
 - Superficie: `#1A2A3F`
-- Texto principal: `#F4F1E8` (blanco roto cálido)
-- Texto secundario: `#A8B5C4`
-- Acento: `#E8B620` (mismo amarillo — destaca aún más sobre oscuro)
+- Texto principal: `#A8C8E0` (warm — azul frío suave)
+- Texto secundario: `#4A7A9B`
+- Acento: `#00FF41` (mismo arcade-green — destaca aún más sobre oscuro)
 - Borde: `#2A3B52`
 
-Definir estos colores como tokens del theme de Tailwind (`bg-navy`, `text-navy`, `accent-gold`, etc.) para que el markup se mantenga legible.
+Tokens Tailwind definidos en `globals.css`: `arcade-green`, `arcade-cyan`, `arcade-red`, `navy`, `navy-muted`, `surface`, `deep`, `deep-surface`, `warm`, `warm-muted`, `stroke`, `stroke-dark`.
 
 ### Tipografía
 
-- **Display / Titulares**: **Fraunces** (Google Fonts, variable). Para nombre del hero, títulos de sección, números grandes.
-- **Body / UI**: **Inter** (Google Fonts, variable). Para párrafos, navegación, botones, captions.
+Una sola familia: **JetBrains Mono** (Google Fonts). Monospace, diseñada para código — refuerza la estética de programador en ambas vistas.
 
-Cargar ambas vía `next/font/google` y exponerlas como variables CSS.
+Escala orientativa:
 
-Escala tipográfica orientativa:
-
-- Nombre del hero: 64–96px, Fraunces, peso 400–500
-- Títulos de sección: 32–48px, Fraunces
-- Subtítulos: 20–24px, Inter, peso 500
-- Cuerpo: 16–18px, Inter, peso 400, line-height 1.6–1.7
-- Pequeño / captions: 14px, Inter
+- Nombre del hero: 64–96px, peso 700–800
+- Títulos de sección: 32–48px, peso 600
+- Cuerpo: 16–18px, peso 400, line-height 1.6–1.7
+- Captions / labels: 12–14px, uppercase, tracking-widest
 
 ### Principios de diseño
 
-1. **El espacio en blanco es una característica.** Mucho aire para respirar; sin miedo al vacío.
-2. **Tipografía por encima de la decoración.** Los titulares grandes y seguros llevan el diseño — no los gráficos.
-3. **El trabajo es el protagonista.** En `/rigger` el reel y los visuales de los proyectos deben dominar. La UI se aparta.
-4. **Una idea por sección.** No empaquetar tres conceptos en un solo bloque.
-5. **Movimiento sutil únicamente.** Fades suaves y slides al hacer scroll. Nada que rebote, gire o reclame atención.
-6. **Asimetría con ritmo.** Variar anchos y desplazar elementos a propósito, pero manteniendo una sensación de estructura.
+1. **Espacio en blanco como característica.** Mucho aire; sin miedo al vacío.
+2. **Estética de programador.** La referencia visual es un editor de código / terminal. Monospace, contraste alto, verde fosforescente como único acento de color.
+3. **Minimalismo no austeridad.** Pocos elementos, pero cada uno bien ejecutado. No saturar.
+4. **El trabajo protagonista.** En `/rigger` el reel y los proyectos dominan; la UI se aparta.
+5. **Una idea por sección.** No agrupar tres conceptos en un bloque.
+6. **Movimiento mínimo, solo CSS.** Fades suaves al cargar/hacer scroll. Nada de rebotes ni animaciones llamativas.
 
 ### Qué evitar
 
-- Estética genérica de "portfolio hecho con IA": gradientes morados, glassmorphism, glows neón, fondos con mesh, halos blur.
-- Emojis en la UI (el CV no los usa; mantener la coherencia).
-- Ilustraciones de stock o clusters de iconos como decoración.
-- Tipografías sobreusadas: Roboto, Open Sans, Lato, Poppins.
-- "Modo oscuro" que es solo invertir los colores del claro — diseñar el oscuro de forma intencional.
-- Spinners que bloquean el contenido — usar skeletons o placeholders conscientes del contenido.
+- Tipografías serif o sans-serif genéricas (Roboto, Inter, Open Sans, Poppins, Fraunces) — solo JetBrains Mono.
+- Gradientes, glassmorphism, glows de neón, halos blur, fondos con mesh.
+- Emojis en la UI.
+- Ilustraciones de stock o clusters de iconos decorativos.
+- Acento dorado (`#E8B620`) — era la paleta anterior; el acento ahora es arcade-green.
+- El toggle sigue usando `localStorage` pero ya no necesita dorado como acento.
 
 ## El toggle de vista
 
 Persistente en el header. Dos estados visibles: **Rigger** / **Developer**.
 
-- Diseño distintivo — usa el acento dorado.
+- Diseño distintivo — usa el acento arcade-green.
 - Persiste entre navegaciones usando `localStorage`.
 - Al hacer click navega a la página equivalente del otro modo cuando aplique (por ejemplo `/rigger/projects` ↔ `/dev/projects`), o a la raíz de esa sección si no hay equivalencia.
 - **No** modifica la configuración `primaryView`. Eso es la palanca de Sara para decidir qué se muestra en `/` a un visitante nuevo.
