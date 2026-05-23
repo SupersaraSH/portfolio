@@ -20,7 +20,19 @@ function getViewFromPathname(pathname: string): View | null {
   return null; // /about, /contact — usar localStorage
 }
 
+const ROOTED_PATHS: Record<View, string[]> = {
+  dev: ['/dev/projects/'],
+  rigger: [],
+};
+
 function getEquivalentPath(currentPath: string, targetView: View): string {
+  const sourceView: View = targetView === 'dev' ? 'rigger' : 'dev';
+
+  // Rutas sin equivalente directo en el otro modo → raíz del modo destino
+  if (ROOTED_PATHS[sourceView].some((p) => currentPath.startsWith(p))) {
+    return `/${targetView}`;
+  }
+
   if (targetView === 'dev') {
     return currentPath.startsWith('/rigger')
       ? currentPath.replace('/rigger', '/dev')

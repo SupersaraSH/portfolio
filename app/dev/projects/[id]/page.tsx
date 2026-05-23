@@ -1,9 +1,10 @@
 import { notFound } from 'next/navigation';
-import Image from 'next/image';
 import Link from 'next/link';
 import { devProjects } from '@/content/dev/projects';
 import { Badge } from '@/components/ui/Badge';
-import { VimeoEmbed } from '@/components/rigger/VimeoEmbed';
+import { YouTubeEmbed } from '@/components/dev/YouTubeEmbed';
+import { ProjectImageViewer } from '@/components/dev/ProjectImageViewer';
+import { IframeEmbed } from '@/components/dev/IframeEmbed';
 
 export function generateStaticParams() {
   return devProjects.map((p) => ({ id: p.id }));
@@ -20,14 +21,19 @@ export default async function DevProjectPage({ params }: { params: Promise<{ id:
   const project = devProjects.find((p) => p.id === id);
   if (!project) notFound();
 
+  const images = [
+    ...(project.imageUrl ? [project.imageUrl] : []),
+    ...(project.gallery ?? []),
+  ];
+
   return (
     <div className="min-h-screen">
-      <div className="mx-auto max-w-4xl px-6 py-16">
+      <div className="mx-auto max-w-6xl px-6 pt-6 pb-16">
 
         {/* Back */}
         <Link
           href="/dev"
-          className="mb-12 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-navy-muted transition-colors hover:text-navy"
+          className="mb-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-navy-muted transition-colors hover:text-navy"
         >
           <span aria-hidden="true">←</span>
           {'// volver'}
@@ -38,26 +44,16 @@ export default async function DevProjectPage({ params }: { params: Promise<{ id:
           {'// dev project'}
         </p>
         <h1 className="text-4xl font-bold text-navy md:text-5xl">{project.title}</h1>
-        <p className="mt-2 text-navy-muted">{project.year}</p>
+        <p className="mt-2 font-mono text-sm text-navy-muted">{project.year}</p>
 
-        {/* Video */}
-        {project.videoUrl && (
-          <div className="mt-10">
-            <VimeoEmbed url={project.videoUrl} />
+        {/* Demo en vivo o galería de imágenes */}
+        {project.embedUrl ? (
+          <div className="mt-4">
+            <IframeEmbed url={project.embedUrl} title={project.title} />
           </div>
-        )}
-
-        {/* Imagen principal (solo si no hay vídeo) */}
-        {project.imageUrl && !project.videoUrl && (
-          <div className="relative mt-10 aspect-video w-full overflow-hidden rounded-lg bg-surface">
-            <Image
-              src={project.imageUrl}
-              alt={project.title}
-              fill
-              priority
-              className="object-cover"
-              sizes="(max-width: 896px) 100vw, 896px"
-            />
+        ) : images.length > 0 && (
+          <div className="mt-4">
+            <ProjectImageViewer images={images} title={project.title} liveUrl={project.liveUrl} />
           </div>
         )}
 
@@ -66,61 +62,40 @@ export default async function DevProjectPage({ params }: { params: Promise<{ id:
 
         {/* Stack */}
         <div className="mt-8">
-          <p className="mb-3 font-mono text-xs uppercase tracking-widest text-navy-muted">
+          <p className="mb-3 font-mono text-xs uppercase tracking-widest text-navy">
             {'// stack técnico'}
           </p>
           <div className="flex flex-wrap gap-2">
             {project.tech.map((t) => (
-              <Badge key={t}>{t}</Badge>
+              <Badge key={t} className="text-navy! border-navy/40!">{t}</Badge>
             ))}
           </div>
         </div>
 
-        {/* Galería */}
-        {project.gallery && project.gallery.length > 0 && (
-          <div className="mt-12">
-            <p className="mb-4 font-mono text-xs uppercase tracking-widest text-navy-muted">
-              {'// galería'}
-            </p>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {project.gallery.map((img, i) => (
-                <div key={i} className="relative aspect-video overflow-hidden rounded-lg bg-surface">
-                  <Image
-                    src={img}
-                    alt={`${project.title} — captura ${i + 1}`}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 640px) 100vw, 448px"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
         {/* Links */}
         {(project.repoUrl || project.liveUrl) && (
-          <div className="mt-12 flex gap-8">
+          <div className="mt-8 flex gap-8">
             {project.repoUrl && (
               <a
                 href={project.repoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-sm uppercase tracking-widest text-navy-muted transition-colors hover:text-navy"
+                className="group inline-flex items-center gap-2 border-2 border-navy px-4 py-2 font-mono text-base font-bold uppercase tracking-widest text-navy transition-all hover:bg-navy hover:text-white"
               >
-                {'// GitHub →'}
+                {'// GitHub'}
+                <span className="transition-transform group-hover:translate-x-1">→</span>
               </a>
             )}
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-mono text-sm uppercase tracking-widest text-comment transition-opacity hover:opacity-70"
-              >
-                {'// ver demo →'}
-              </a>
-            )}
+          </div>
+        )}
+
+        {/* Vídeo YouTube */}
+        {project.youtubeUrl && (
+          <div className="mt-12">
+            <p className="mb-4 font-mono text-xs uppercase tracking-widest text-navy-muted">
+              {'// demo en vídeo'}
+            </p>
+            <YouTubeEmbed url={project.youtubeUrl} />
           </div>
         )}
 

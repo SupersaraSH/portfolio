@@ -14,18 +14,45 @@ export function DevProjectCard({ project, priority = false }: DevProjectCardProp
   return (
     <article className="group border-2 border-navy bg-surface transition-colors hover:border-comment">
       {project.imageUrl && (
-        <Link href={href} tabIndex={-1} aria-hidden="true">
-          <div className="relative aspect-video w-full overflow-hidden">
+        project.liveUrl ? (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative block overflow-hidden group/demo"
+            aria-label={`Ver demo de ${project.title}`}
+          >
             <Image
               src={project.imageUrl}
               alt={project.title}
-              fill
-              priority={priority}
-              className="object-cover transition-opacity group-hover:opacity-90"
+              width={0}
+              height={0}
               sizes="(max-width: 768px) 100vw, 50vw"
+              priority={priority}
+              className="w-full h-auto transition-transform duration-300 group-hover/demo:scale-[1.03]"
             />
-          </div>
-        </Link>
+            <div className="absolute inset-0 bg-navy/75 flex flex-col items-center justify-center gap-2 opacity-0 group-hover/demo:opacity-100 transition-opacity duration-300">
+              <span className="font-mono text-xl font-bold tracking-widest text-arcade-green uppercase">
+                // VER DEMO
+              </span>
+              <span className="font-mono text-sm text-arcade-green/70 tracking-widest">
+                ↗ abre en nueva pestaña
+              </span>
+            </div>
+          </a>
+        ) : (
+          <Link href={href} tabIndex={-1} aria-hidden="true" className="block overflow-hidden">
+            <Image
+              src={project.imageUrl}
+              alt={project.title}
+              width={0}
+              height={0}
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority={priority}
+              className="w-full h-auto transition-transform duration-300 group-hover:scale-[0.99]"
+            />
+          </Link>
+        )
       )}
       <div className="p-6">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
@@ -41,19 +68,10 @@ export function DevProjectCard({ project, priority = false }: DevProjectCardProp
                 href={project.repoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-navy-muted transition-colors hover:text-navy"
+                className="group inline-flex items-center gap-2 border-2 border-navy px-3 py-1 font-mono text-xs font-bold uppercase tracking-widest text-navy transition-all hover:bg-navy hover:text-white"
               >
-                GitHub
-              </a>
-            )}
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-comment transition-colors hover:opacity-70"
-              >
-                Ver demo
+                {'// GitHub'}
+                <span className="transition-transform group-hover:translate-x-1">→</span>
               </a>
             )}
           </div>
