@@ -21,10 +21,17 @@ export function IframeEmbed({ url, title }: IframeEmbedProps) {
   }, []);
 
   function handleLoad(e: React.SyntheticEvent<HTMLIFrameElement>) {
-    const doc = e.currentTarget.contentDocument;
+    const iframe = e.currentTarget;
+
+    // Same-origin: leer directamente
+    const doc = iframe.contentDocument;
     if (doc) {
       setHeight(Math.max(doc.documentElement.scrollHeight, doc.body.scrollHeight));
+      return;
     }
+
+    // Cross-origin: pedir la altura a la calculadora
+    iframe.contentWindow?.postMessage('getHeight', '*');
   }
 
   return (
