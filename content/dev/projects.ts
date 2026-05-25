@@ -84,8 +84,8 @@ export const devProjects: DevProject[] = [
     tech: ['HTML', 'CSS', 'JavaScript'],
     year: 2025,
     imageUrl: '/images/dev/calculadora_portada.jpg',
-    // TODO: Sara añade repoUrl si quiere publicar el repo
-    embedUrl: '/calculadora/index.html',
+    repoUrl: 'https://github.com/SupersaraSH/Space-Calculator',
+    embedUrl: 'https://supersarash.github.io/Space-Calculator/',
   },
   {
     id: 'portfolio',
