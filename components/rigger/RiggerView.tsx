@@ -7,7 +7,7 @@ export function RiggerView() {
   return (
     <div className="flex-1 bg-deep text-warm">
       {/* Hero */}
-      <div className="mx-auto max-w-6xl px-6 pb-8 pt-20">
+      <div className="mx-auto max-w-6xl px-4 md:px-6 pb-8 pt-12 md:pt-20">
         <p className="mb-6 text-sm font-bold uppercase tracking-widest text-arcade-green">
           {'// character rigger'}
         </p>
@@ -25,7 +25,7 @@ export function RiggerView() {
       </div>
 
       {/* Reel */}
-      <div className="mx-auto max-w-6xl px-6 pb-16 pt-10">
+      <div className="mx-auto max-w-6xl px-4 md:px-6 pb-10 pt-8 md:pb-16 md:pt-10">
         <h2 className="mb-6 text-sm font-bold uppercase tracking-widest text-warm">
           {'// reel'}
         </h2>
@@ -35,7 +35,7 @@ export function RiggerView() {
       </div>
 
       {/* Créditos */}
-      <div className="mx-auto max-w-6xl px-6 py-20">
+      <div className="mx-auto max-w-6xl px-4 md:px-6 py-10 md:py-20">
         <h2 className="mb-8 text-sm font-bold uppercase tracking-widest text-warm">
           {'// créditos'}
         </h2>

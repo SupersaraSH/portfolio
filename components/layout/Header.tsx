@@ -27,7 +27,32 @@ export function Header() {
         >
           {siteConfig.name}
         </Link>
-        <ViewToggle />
+
+        <div className="flex items-center gap-6">
+          <nav className="hidden items-center gap-6 sm:flex" aria-label="Navegación principal">
+            <Link
+              href="/about"
+              className={`font-mono text-xs font-semibold uppercase tracking-widest transition-colors ${
+                pathname === '/about'
+                  ? isRigger ? 'text-arcade-green' : 'text-comment'
+                  : isRigger ? 'text-warm-muted hover:text-warm' : 'text-navy-muted hover:text-navy'
+              }`}
+            >
+              // about
+            </Link>
+            <Link
+              href="/contact"
+              className={`font-mono text-xs font-semibold uppercase tracking-widest transition-colors ${
+                pathname === '/contact'
+                  ? isRigger ? 'text-arcade-green' : 'text-comment'
+                  : isRigger ? 'text-warm-muted hover:text-warm' : 'text-navy-muted hover:text-navy'
+              }`}
+            >
+              // contact
+            </Link>
+          </nav>
+          <ViewToggle />
+        </div>
       </PageWrapper>
     </header>
   );

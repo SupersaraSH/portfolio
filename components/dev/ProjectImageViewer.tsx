@@ -39,7 +39,7 @@ export function ProjectImageViewer({ images, title, liveUrl }: Props) {
   const cur = dims[images[current]];
 
   return (
-    <div className="flex items-start gap-3">
+    <div className="flex flex-col gap-3 md:flex-row md:items-start">
 
       {/* Imagen principal + controles */}
       <div className="min-w-0 flex-1">
@@ -139,9 +139,9 @@ export function ProjectImageViewer({ images, title, liveUrl }: Props) {
         )}
       </div>
 
-      {/* Tira de miniaturas */}
+      {/* Tira de miniaturas — fila en mobile, columna en md+ */}
       {images.length > 1 && (
-        <div className="flex w-28 shrink-0 flex-col gap-2 overflow-y-auto max-h-152 scrollbar-none [&::-webkit-scrollbar]:hidden">
+        <div className="flex flex-row gap-2 overflow-x-auto md:w-28 md:shrink-0 md:flex-col md:overflow-x-hidden md:overflow-y-auto md:max-h-152 [&::-webkit-scrollbar]:hidden">
           {images.map((img, i) => {
             const d = dims[img];
             return (
@@ -150,7 +150,7 @@ export function ProjectImageViewer({ images, title, liveUrl }: Props) {
                 ref={(el) => { thumbRefs.current[i] = el; }}
                 onClick={() => setCurrent(i)}
                 aria-label={`Ver captura ${i + 1}`}
-                className={`block w-full shrink-0 cursor-pointer border-2 transition-all ${
+                className={`block w-20 shrink-0 cursor-pointer border-2 transition-all md:w-full ${
                   i === current
                     ? 'border-navy opacity-100'
                     : 'border-transparent opacity-40 hover:border-navy/40 hover:opacity-90'
@@ -162,7 +162,7 @@ export function ProjectImageViewer({ images, title, liveUrl }: Props) {
                     alt={`Captura ${i + 1}`}
                     width={d.w}
                     height={d.h}
-                    sizes="112px"
+                    sizes="(max-width: 768px) 80px, 112px"
                     className="block h-auto w-full"
                   />
                 ) : (

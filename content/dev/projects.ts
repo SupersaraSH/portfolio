@@ -14,6 +14,17 @@ export type DevProject = {
 
 export const devProjects: DevProject[] = [
   {
+    id: 'portfolio',
+    title: 'Portfolio personal',
+    description:
+      'Esta misma web: portfolio de doble modo (rigger / developer) para mostrar mi trabajo en ambos campos.',
+    tech: ['Next.js 16', 'TypeScript', 'Tailwind CSS 4', 'Vercel'],
+    year: 2025,
+    repoUrl: 'https://github.com/SupersaraSH/portfolio',
+    liveUrl: undefined, // TODO: Sara añade URL de Vercel
+    imageUrl: '/images/dev/portfolio_portada.jpg',
+  },
+  {
     id: 'lynve',
     title: 'Lynve Aula Musical',
     description:
@@ -86,16 +97,5 @@ export const devProjects: DevProject[] = [
     imageUrl: '/images/dev/calculadora_portada.jpg',
     repoUrl: 'https://github.com/SupersaraSH/Space-Calculator',
     embedUrl: 'https://supersarash.github.io/Space-Calculator/',
-  },
-  {
-    id: 'portfolio',
-    title: 'Portfolio personal',
-    description:
-      'Esta misma web: portfolio de doble modo (rigger / developer) para mostrar mi trabajo en ambos campos.',
-    tech: ['Next.js 16', 'TypeScript', 'Tailwind CSS 4', 'Vercel'],
-    year: 2025,
-    repoUrl: 'https://github.com/SupersaraSH/portfolio',
-    liveUrl: undefined, // TODO: Sara añade URL de Vercel
-    imageUrl: '/images/dev/portfolio_portada.jpg',
   },
 ];

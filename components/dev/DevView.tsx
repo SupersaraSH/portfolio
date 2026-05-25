@@ -7,7 +7,7 @@ export function DevView() {
     <div className="flex-1">
 
       {/* Hero */}
-      <div className="mx-auto max-w-6xl px-6 pb-16 pt-20">
+      <div className="mx-auto max-w-6xl px-4 md:px-6 pb-10 pt-12 md:pb-16 md:pt-20">
         <p className="mb-6 text-sm font-bold uppercase tracking-widest text-comment">
           {'// web developer'}
         </p>
@@ -25,7 +25,7 @@ export function DevView() {
       <div className="border-t border-stroke" />
 
       {/* Stack técnico */}
-      <div className="mx-auto max-w-6xl px-6 py-20">
+      <div className="mx-auto max-w-6xl px-4 md:px-6 py-10 md:py-20">
         <h2 className="mb-8 text-sm font-bold uppercase tracking-widest text-comment">{'// stack'}</h2>
         <TechStack />
       </div>
@@ -33,7 +33,7 @@ export function DevView() {
       <div className="border-t border-stroke" />
 
       {/* Proyectos */}
-      <div className="mx-auto max-w-6xl px-6 py-20">
+      <div className="mx-auto max-w-6xl px-4 md:px-6 py-10 md:py-20">
         <h2 className="mb-8 text-sm font-bold uppercase tracking-widest text-comment">{'// proyectos'}</h2>
         <ProjectShowcase />
       </div>

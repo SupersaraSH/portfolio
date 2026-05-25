@@ -14,6 +14,24 @@ export const metadata: Metadata = {
   title: "Sara Hoces — Character Rigger & Web Developer",
   description:
     "Portfolio de Sara Hoces: Character Rigger con más de 10 años de experiencia en animación 3D y Full Stack Web Developer.",
+  openGraph: {
+    title: "Sara Hoces — Character Rigger & Web Developer",
+    description:
+      "Portfolio de Sara Hoces: Character Rigger con más de 10 años de experiencia en animación 3D y Full Stack Web Developer.",
+    type: "website",
+    locale: "es_ES",
+    siteName: "Sara Hoces Portfolio",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sara Hoces — Character Rigger & Web Developer",
+    description:
+      "Portfolio de Sara Hoces: Character Rigger con más de 10 años de experiencia en animación 3D y Full Stack Web Developer.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

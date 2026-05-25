@@ -55,13 +55,21 @@ export function ContactBlock() {
           external
         />
       </dl>
-      <div className="mt-12">
+      <div className="mt-12 flex flex-wrap gap-4">
         <a
           href={cv.path}
           download
-          className="inline-flex items-center gap-2 bg-navy px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-comment hover:text-white"
+          className="inline-flex items-center gap-2 bg-navy px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-comment"
         >
           Descargar CV
+        </a>
+        <a
+          href={cv.path}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 border-2 border-navy px-8 py-3 text-sm font-medium text-navy transition-colors hover:border-comment hover:text-comment"
+        >
+          Ver CV
         </a>
       </div>
     </PageWrapper>
