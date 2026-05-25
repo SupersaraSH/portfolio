@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 type IframeEmbedProps = {
   url: string;
@@ -9,6 +9,16 @@ type IframeEmbedProps = {
 
 export function IframeEmbed({ url, title }: IframeEmbedProps) {
   const [height, setHeight] = useState(400);
+
+  useEffect(() => {
+    function handleMessage(e: MessageEvent) {
+      if (e.data?.iframeHeight && typeof e.data.iframeHeight === 'number') {
+        setHeight(e.data.iframeHeight);
+      }
+    }
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
 
   function handleLoad(e: React.SyntheticEvent<HTMLIFrameElement>) {
     const doc = e.currentTarget.contentDocument;
