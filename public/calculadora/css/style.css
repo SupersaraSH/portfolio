@@ -1,0 +1,206 @@
+:root {
+  --box-size: 50px;
+  --box-big: calc(var(--box-size) * 5 / 4);
+  --main-color: #21ff1b;
+  --box-shadow: 1px 1px 3px .1px rgb(75, 75, 75) inset;
+
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+main {
+  font-family: 'StarShield';
+  /* font-family: 'Invaders', sans-serif;
+  font-weight: normal;
+  font-style: normal; */
+
+  background-color: black;
+  color: black;
+}
+
+.container {
+  width: min(82.5rem, 100%);
+  margin-inline: auto;
+  padding-block: 5rem 1rem;
+
+  h1 {
+    text-align: center;
+    padding-block-end: 3rem;
+    color: var(--main-color);
+    font-family: 'StarShield';
+    font-size: 5rem;
+  }
+
+  .row {
+    display: flex;
+    justify-content: center;
+
+    .col {
+      align-items: center;
+    }
+
+    .screen {
+      inline-size: calc(var(--box-size)* 5);
+      block-size: var(--box-size);
+    
+      input {
+        inline-size: 100%;
+        block-size: 100%;
+        font-family: 'StarShield';
+        font-size: 2rem;
+        color: white;
+        background-color: black;
+        text-align: center;
+        border: none;
+      }
+    }
+    
+    .green-box {
+      inline-size: var(--box-size);
+      block-size: var(--box-size);
+      background-color: var(--main-color);
+      /* eje x, eje y, difuminado (opcional), grosor (opcional), color */
+      box-shadow: var(--box-shadow);
+    }
+
+    .red-box {
+      background-color: red;
+      inline-size: var(--box-size);
+      block-size: var(--box-size);
+      box-shadow: var(--box-shadow);
+    }
+    
+    .empty-box {
+      inline-size: var(--box-size);
+      block-size: var(--box-size);
+    }
+    
+    .big-box {
+      inline-size: var(--box-big);
+      block-size: var(--box-size);
+      text-align: center;
+      align-content: center;
+    }
+    
+    .limb-hide {
+      background-color: black;
+      box-shadow: 0 0 0 0 black inset ;
+    }
+    
+    .limb-unhide {
+      inline-size: var(--box-size);
+      block-size: var(--box-size);
+      background-color: var(--main-color);
+      box-shadow: var(--box-shadow);
+    }
+
+    .limb-hide.leg{
+      transition-delay: 0.3s;
+    }
+
+    .limb-unhide.leg {
+      transition-delay: 0.3s;
+    }
+
+    .limb-unhide-red {
+      inline-size: var(--box-size);
+      block-size: var(--box-size);
+      background-color: red;
+      /* eje x, eje y, difuminado (opcional), grosor (opcional), color */
+      box-shadow: var(--box-shadow);
+    }
+
+    .button {
+      inline-size: 100%;
+      block-size: 100%;
+
+      box-shadow: var(--box-shadow);
+      border: 0;
+      font-family: 'StarShield';
+      font-size: 2rem;
+    }
+    
+  }
+}
+
+.screen.text {
+  inline-size: 100%;
+  margin-block: 1.5rem;
+
+  input {
+    inline-size: 100%;
+    block-size: 100%;
+    font-family: 'Invaders';
+    font-size: 2rem;
+    color: white;
+    background-color: black;
+    text-align: center;
+    border: none;
+    /* border-bottom: 4px solid white; */
+  }
+}
+
+.row-play {
+  margin-inline-start: 35rem;
+  padding-block: .5rem  1rem;
+
+}
+
+.audio {
+  inline-size: var(--box-size);
+  block-size: var(--box-size);
+  --color: var(--main-color);
+  --size: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  font-size: var(--size);
+  user-select: none;
+  fill: var(--color);
+}
+
+.audio .play {
+  position: absolute;
+  animation: keyframes-fill 0.3s;
+}
+
+.audio .pause {
+  position: absolute;
+  display: none;
+  animation: keyframes-fill 0.3s;
+}
+
+/* ------ On check event ------ */
+.audio input:checked ~ .play {
+  display: none;
+}
+
+.audio input:checked ~ .pause {
+  display: block;
+}
+
+/* ------ Hide the default checkbox ------ */
+.audio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* ------ Animation ------ */
+@keyframes keyframes-fill {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+}

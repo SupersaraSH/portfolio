@@ -58,7 +58,7 @@ export const devProjects: DevProject[] = [
     id: 'film-buff',
     title: 'Film Buff',
     description:
-      'Red social de cinéfilos: catálogo de películas con puntuación y reseña, perfiles de usuario, autenticación con JWT, subida de imágenes y notificaciones por email.',
+      'Film Buff es una red social para cinéfilos construida con Node.js y Express siguiendo una arquitectura MVC. Las vistas se renderizan en servidor con EJS y los datos persisten en MySQL con borrado lógico.La autenticación se gestiona con JWT almacenado en cookie httpOnly y las contraseñas se encriptan con bcrypt. Los formularios se validan con Zod y la subida de imágenes con Multer. Desplegada en Railway con el servidor Node.js y una base de datos MySQL como servicios independientes, con las variables de conexión inyectadas automáticamente por la plataforma.',
     tech: [
       'Node.js',
       'Express',
@@ -75,6 +75,17 @@ export const devProjects: DevProject[] = [
     repoUrl: 'https://github.com/SupersaraSH/Film-Buff',
     imageUrl: '/images/dev/film-buff-portada.png',
     liveUrl: 'https://film-buff-production.up.railway.app',
+  },
+  {
+    id: 'calculadora',
+    title: 'Space Calculator',
+    description:
+      'Calculadora temática de Space Invaders construida en HTML, CSS y JavaScript vanilla, sin frameworks. El alienígena está construido con pixel art puro en CSS. Reacciona a cada operación: sus extremidades se mueven al calcular, se vuelve rojo con "GAME OVER" en caso de error, y reproduce sonidos arcade. Incluye música de fondo con toggle de play/pausa.',
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    year: 2025,
+    imageUrl: '/images/dev/calculadora_portada.jpg',
+    // TODO: Sara añade repoUrl si quiere publicar el repo
+    embedUrl: '/calculadora/index.html',
   },
   {
     id: 'portfolio',

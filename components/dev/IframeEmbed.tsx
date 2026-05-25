@@ -1,17 +1,32 @@
+'use client';
+
+import { useState } from 'react';
+
 type IframeEmbedProps = {
   url: string;
   title: string;
 };
 
 export function IframeEmbed({ url, title }: IframeEmbedProps) {
+  const [height, setHeight] = useState(400);
+
+  function handleLoad(e: React.SyntheticEvent<HTMLIFrameElement>) {
+    const doc = e.currentTarget.contentDocument;
+    if (doc) {
+      setHeight(Math.max(doc.documentElement.scrollHeight, doc.body.scrollHeight));
+    }
+  }
+
   return (
     <figure className="w-full">
       <div className="w-full overflow-hidden border-2 border-navy">
         <iframe
           src={url}
           title={title}
-          className="h-[700px] w-full"
+          style={{ height: `${height}px` }}
+          className="w-full"
           sandbox="allow-forms allow-modals allow-scripts allow-same-origin allow-popups"
+          onLoad={handleLoad}
         />
       </div>
       <figcaption className="mt-3 flex items-center justify-between">
