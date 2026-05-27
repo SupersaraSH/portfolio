@@ -1,6 +1,7 @@
 import { PageWrapper } from '@/components/layout/PageWrapper';
 import { siteConfig } from '@/config/site';
 import { cv } from '@/content/shared/cv';
+import { ContactForm } from '@/components/shared/ContactForm';
 
 type ContactRowProps = {
   label: string;
@@ -71,6 +72,13 @@ export function ContactBlock() {
         >
           Ver CV
         </a>
+      </div>
+
+      <div className="mt-20">
+        <p className="mb-6 text-sm font-bold uppercase tracking-widest text-comment">
+          {'// o escríbeme directamente'}
+        </p>
+        <ContactForm />
       </div>
     </PageWrapper>
   );

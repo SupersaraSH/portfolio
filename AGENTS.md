@@ -19,7 +19,7 @@ Un toggle en el header permite a quien visita la web cambiar entre los dos "modo
 - **Lenguaje**: TypeScript (modo estricto)
 - **Estilos**: Tailwind CSS 4 (usando el theme inline con `@theme`)
 - **Tipografías**: `next/font/google` (JetBrains Mono — monospace, estética de programador)
-- **Deploy**: Vercel
+- **Deploy**: AWS S3 + CloudFront (infraestructura gestionada con Terraform)
 - **Gestor de paquetes**: pnpm 11
 
 El proyecto NO usa carpeta `src/`. Las rutas están en `/app`, y el código compartido en `/components`, `/lib`, `/content`, etc., directamente en la raíz.
@@ -45,7 +45,7 @@ export const siteConfig = {
 };
 ```
 
-Sara cambia ese valor, hace commit, push, y Vercel redeploya en segundos.
+Sara cambia ese valor, hace commit, push, y GitHub Actions redeploya automáticamente en AWS.
 
 ### Organización de componentes
 

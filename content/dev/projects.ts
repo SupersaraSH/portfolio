@@ -21,7 +21,7 @@ export const devProjects: DevProject[] = [
     tech: ['Next.js 16', 'TypeScript', 'Tailwind CSS 4', 'Vercel'],
     year: 2025,
     repoUrl: 'https://github.com/SupersaraSH/portfolio',
-    liveUrl: undefined, // TODO: Sara añade URL de Vercel
+    liveUrl: undefined, // TODO: añadir URL de CloudFront tras el deploy
     imageUrl: '/images/dev/portfolio_portada.jpg',
   },
   {

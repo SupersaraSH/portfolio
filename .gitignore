@@ -36,6 +36,12 @@ yarn-error.log*
 # vercel
 .vercel
 
+# terraform
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.backup
+terraform/lambda/contact.zip
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

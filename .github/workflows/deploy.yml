@@ -1,0 +1,72 @@
+name: Deploy portfolio to AWS
+
+# Se ejecuta automáticamente cuando hay un push a la rama main.
+# También puedes lanzarlo manualmente desde la pestaña "Actions" de GitHub.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest # Máquina virtual limpia de Ubuntu en los servidores de GitHub
+
+    steps:
+      # 1. Descarga el código del repositorio en la máquina virtual
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      # 2. Instala pnpm (el gestor de paquetes que usa este proyecto)
+      - name: Instalar pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      # 3. Instala Node.js y configura la caché de pnpm para que
+      #    las siguientes ejecuciones sean más rápidas
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      # 4. Instala las dependencias del proyecto (lee pnpm-lock.yaml)
+      - name: Instalar dependencias
+        run: pnpm install --frozen-lockfile
+
+      # 5. Genera la carpeta out/ con el HTML/CSS/JS estático.
+      #    NEXT_PUBLIC_CONTACT_API_URL se "hornea" en el JS en este paso —
+      #    es el endpoint del API Gateway que creó Terraform.
+      - name: Build
+        run: pnpm build
+        env:
+          NEXT_PUBLIC_CONTACT_API_URL: ${{ secrets.NEXT_PUBLIC_CONTACT_API_URL }}
+
+      # 6. Configura las credenciales AWS para los pasos siguientes
+      - name: Configurar credenciales AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+
+      # 7. Sube los archivos de out/ al bucket S3.
+      #    --delete elimina del bucket los archivos que ya no existen en out/
+      #    (evita que queden archivos huérfanos de builds anteriores)
+      - name: Subir a S3
+        run: |
+          aws s3 sync out/ s3://sarahoces-portfolio \
+            --delete \
+            --cache-control "public, max-age=31536000, immutable"
+
+      # 8. Invalida la caché de CloudFront.
+      #    CloudFront guarda copias de los archivos en sus servidores globales.
+      #    Sin este paso, los visitantes seguirían viendo la versión anterior
+      #    durante horas (hasta que la caché expire por sí sola).
+      #    "/*" significa "invalida todo" — así la próxima visita fuerza
+      #    a CloudFront a buscar los archivos frescos en S3.
+      - name: Invalidar caché de CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/*"
