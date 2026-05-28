@@ -4,12 +4,19 @@ import { useState } from 'react';
 
 type FormState = 'idle' | 'sending' | 'success' | 'error';
 
-const inputClass =
-  'border border-stroke bg-surface px-4 py-3 text-navy outline-none focus:border-comment placeholder:text-navy-muted/40 transition-colors font-body text-base';
+type ContactFormProps = {
+  isRigger?: boolean;
+};
 
-export function ContactForm() {
+export function ContactForm({ isRigger = false }: ContactFormProps) {
   const [state, setState] = useState<FormState>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+
+  const inputClass = `border px-4 py-3 outline-none transition-colors font-body text-base ${
+    isRigger
+      ? 'border-stroke-dark bg-deep-surface text-warm focus:border-arcade-green placeholder:text-warm-muted/40'
+      : 'border-stroke bg-surface text-navy focus:border-comment placeholder:text-navy-muted/40'
+  }`;
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -45,11 +52,11 @@ export function ContactForm() {
 
   if (state === 'success') {
     return (
-      <div className="border border-stroke p-8">
-        <p className="mb-2 text-sm font-bold uppercase tracking-widest text-comment">
+      <div className={`border p-8 ${isRigger ? 'border-stroke-dark' : 'border-stroke'}`}>
+        <p className={`mb-2 text-sm font-bold uppercase tracking-widest ${isRigger ? 'text-arcade-green' : 'text-comment'}`}>
           {'// mensaje enviado'}
         </p>
-        <p className="text-navy">Gracias por escribirme. Te responderé en breve.</p>
+        <p className={isRigger ? 'text-warm' : 'text-navy'}>Gracias por escribirme. Te responderé en breve.</p>
       </div>
     );
   }
@@ -59,7 +66,7 @@ export function ContactForm() {
       <div className="flex flex-col gap-2">
         <label
           htmlFor="nombre"
-          className="text-sm uppercase tracking-widest text-navy-muted"
+          className={`text-sm uppercase tracking-widest ${isRigger ? 'text-warm-muted' : 'text-navy-muted'}`}
         >
           {'// nombre'}
         </label>
@@ -76,7 +83,7 @@ export function ContactForm() {
       <div className="flex flex-col gap-2">
         <label
           htmlFor="email"
-          className="text-sm uppercase tracking-widest text-navy-muted"
+          className={`text-sm uppercase tracking-widest ${isRigger ? 'text-warm-muted' : 'text-navy-muted'}`}
         >
           {'// email'}
         </label>
@@ -93,7 +100,7 @@ export function ContactForm() {
       <div className="flex flex-col gap-2">
         <label
           htmlFor="mensaje"
-          className="text-sm uppercase tracking-widest text-navy-muted"
+          className={`text-sm uppercase tracking-widest ${isRigger ? 'text-warm-muted' : 'text-navy-muted'}`}
         >
           {'// mensaje'}
         </label>
@@ -114,7 +121,11 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={state === 'sending'}
-        className="self-start bg-navy px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-comment disabled:cursor-not-allowed disabled:opacity-50"
+        className={`self-start px-8 py-3 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
+          isRigger
+            ? 'bg-warm text-deep hover:bg-arcade-green'
+            : 'bg-navy text-white hover:bg-comment'
+        }`}
       >
         {state === 'sending' ? '// enviando...' : '// enviar mensaje'}
       </button>

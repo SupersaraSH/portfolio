@@ -5,10 +5,11 @@ import { usePathname } from 'next/navigation';
 import { siteConfig } from '@/config/site';
 import { PageWrapper } from './PageWrapper';
 import { ViewToggle } from './ViewToggle';
+import { useActiveView } from '@/hooks/useActiveView';
 
 export function Header() {
   const pathname = usePathname();
-  const isRigger = pathname.startsWith('/rigger');
+  const isRigger = useActiveView() === 'rigger';
 
   return (
     <header className={`sticky top-0 z-50 border-b-2 transition-colors ${

@@ -1,13 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { siteConfig } from '@/config/site';
 import { PixelAlien } from '@/components/ui/PixelAlien';
+import { useActiveView } from '@/hooks/useActiveView';
 
 export function Footer() {
-  const pathname = usePathname();
-  const isRigger = pathname.startsWith('/rigger');
+  const isRigger = useActiveView() === 'rigger';
 
   const linkClass = `font-mono text-xs uppercase tracking-widest transition-colors ${
     isRigger ? 'text-warm-muted hover:text-warm' : 'text-navy-muted hover:text-navy'
