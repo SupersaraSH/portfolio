@@ -28,7 +28,7 @@ export const riggerProjects: RiggerProject[] = [
   },
   {
     id: 'proyecto-2',
-    title: 'Erste Group "Belive in Tomorrow"',
+    title: 'Erste Group "Believe in Tomorrow"',
     distributor: 'Passion Pictures',
     studio: 'MinimoVFX',
     year: 2021,
