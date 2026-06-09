@@ -19,9 +19,7 @@ export async function handler(event) {
 
     await ses.send(
       new SendEmailCommand({
-        // Enviamos desde la misma dirección que recibe (SES solo permite
-        // enviar desde emails/dominios verificados)
-        Source: process.env.CONTACT_EMAIL,
+        Source: process.env.SENDER_EMAIL,
         Destination: {
           ToAddresses: [process.env.CONTACT_EMAIL],
         },

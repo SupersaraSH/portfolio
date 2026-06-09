@@ -70,6 +70,7 @@ resource "aws_lambda_function" "contact" {
   environment {
     variables = {
       CONTACT_EMAIL = var.contact_email
+      SENDER_EMAIL  = "contacto@sarahoces.dev"
     }
   }
 }

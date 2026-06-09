@@ -1,5 +1,25 @@
 # OAC = Origin Access Control. Es el "carnet de identidad" que CloudFront
 # presenta a S3 para demostrar que tiene permiso de leer los archivos.
+# Certificado SSL para sarahoces.dev — debe estar en us-east-1 (requisito de CloudFront)
+resource "aws_acm_certificate" "portfolio" {
+  provider                  = aws.us_east_1
+  domain_name               = "sarahoces.dev"
+  subject_alternative_names = ["www.sarahoces.dev"]
+  validation_method         = "DNS"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+# Terraform espera aquí hasta que AWS confirme que el dominio es tuyo.
+# Tú tendrás que añadir los registros CNAME en DonDominio mientras espera.
+resource "aws_acm_certificate_validation" "portfolio" {
+  provider                = aws.us_east_1
+  certificate_arn         = aws_acm_certificate.portfolio.arn
+  validation_record_fqdns = [for record in aws_acm_certificate.portfolio.domain_validation_options : record.resource_record_name]
+}
+
 resource "aws_cloudfront_origin_access_control" "s3_oac" {
   name                              = "${var.bucket_name}-oac"
   origin_access_control_origin_type = "s3"
@@ -35,8 +55,10 @@ resource "aws_cloudfront_function" "url_rewrite" {
 
 resource "aws_cloudfront_distribution" "cdn" {
   enabled             = true
-  default_root_object = "index.html" # Qué sirve CloudFront cuando alguien pide "/"
-  price_class         = "PriceClass_100" # Solo servidores en USA + Europa (más barato)
+  default_root_object = "index.html"
+  price_class         = "PriceClass_100"
+  aliases             = ["sarahoces.dev", "www.sarahoces.dev"]
+  depends_on          = [aws_acm_certificate_validation.portfolio]
 
   # De dónde sacar los archivos: nuestro bucket S3
   origin {
@@ -77,9 +99,9 @@ resource "aws_cloudfront_distribution" "cdn" {
     geo_restriction { restriction_type = "none" }
   }
 
-  # Certificado SSL: usamos el certificado por defecto de CloudFront (*.cloudfront.net)
-  # Cuando tengamos dominio propio, esto cambiará a un ACM certificate
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn      = aws_acm_certificate.portfolio.arn
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2021"
   }
 }
