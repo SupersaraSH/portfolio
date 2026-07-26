@@ -46,12 +46,13 @@ export function VideoPlayer({ src, caption }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   const togglePlay = () => {
     const video = videoRef.current;
     if (!video) return;
     if (video.paused) {
-      video.play();
+      video.play().catch(() => setHasError(true));
       setIsPlaying(true);
     } else {
       video.pause();
@@ -66,6 +67,21 @@ export function VideoPlayer({ src, caption }: VideoPlayerProps) {
     setIsMuted(video.muted);
   };
 
+  if (hasError) {
+    return (
+      <figure className="mx-auto w-full max-w-3xl">
+        <div className="aspect-video w-full rounded-lg border border-stroke-dark bg-deep-surface flex items-center justify-center">
+          <p className="text-sm text-warm-muted">Reel — vídeo no disponible ahora mismo</p>
+        </div>
+        {caption && (
+          <figcaption className="mt-3 text-center text-sm text-warm-muted">
+            {caption}
+          </figcaption>
+        )}
+      </figure>
+    );
+  }
+
   return (
     <figure className="w-full">
       <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-deep">
@@ -77,6 +93,7 @@ export function VideoPlayer({ src, caption }: VideoPlayerProps) {
           muted
           loop
           playsInline
+          onError={() => setHasError(true)}
         />
         <div className="absolute inset-x-0 bottom-0 flex flex-col items-start gap-1 bg-linear-to-t from-deep/80 to-transparent px-4 pb-2 pt-10">
           <button
